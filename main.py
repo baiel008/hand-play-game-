@@ -152,7 +152,7 @@
 
 
 import cv2
-import mediapipe as mp
+import mediapipe_python as mp
 import numpy as np
 import random
 import math
