@@ -416,7 +416,7 @@ import av
 st.set_page_config(page_title="Hand Ball Game", layout="wide")
 
 # Инициализация HandDetector
-detector = HandDetector(maxHands=2, detectionCon=0.5, maxHands=2)
+detector = HandDetector(maxHands=2, detectionCon=0.5)
 
 class Ball:
     def __init__(self, x, y, w, h):
