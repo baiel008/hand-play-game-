@@ -402,7 +402,6 @@
 #
 #     st.markdown("---")
 #     st.markdown("Made with ❤️ using Python")
-
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
@@ -501,11 +500,9 @@ class Ball:
                 cv2.circle(frame, (int(particle['x']), int(particle['y'])),
                            size, particle['color'], -1)
 
-
 def is_index_finger_up(hand):
     fingers = hand["fingersUp"]()
-    return fingers[1] == 1 and all(f == 0 for i,f in enumerate(fingers) if i != 1)
-
+    return fingers[1] == 1 and all(f == 0 for i, f in enumerate(fingers) if i != 1)
 
 class VideoProcessor(VideoProcessorBase):
     def __init__(self):
@@ -551,7 +548,6 @@ class VideoProcessor(VideoProcessorBase):
         for ball in self.balls:
             ball.draw(img)
 
-        # UI информация
         info_text = f"Balls: {sum(1 for b in self.balls if b.alive)} | Score: {self.score}"
         cv2.putText(img, info_text, (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
@@ -563,13 +559,11 @@ class VideoProcessor(VideoProcessorBase):
 
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
-
 # Streamlit UI
 st.title("🎮 Hand Ball Game")
 st.markdown("### Интерактивная игра с распознаванием рук")
 
 col1, col2 = st.columns([2, 1])
-
 with col1:
     st.markdown("""
     **Как играть:**
@@ -579,7 +573,6 @@ with col1:
     - 💥 Коснись мяча чтобы взорвать его
     - 🏆 Набирай очки за взрывы!
     """)
-
 with col2:
     st.markdown("""
     **Советы:**
@@ -589,12 +582,11 @@ with col2:
     """)
 
 st.markdown("---")
-
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
 )
 
-webrtc_ctx = webrtc_streamer(
+webrtc_streamer(
     key="hand-ball-game",
     video_processor_factory=VideoProcessor,
     rtc_configuration=RTC_CONFIGURATION,
@@ -604,22 +596,3 @@ webrtc_ctx = webrtc_streamer(
 
 st.markdown("---")
 st.info("💡 Разреши доступ к камере в браузере для начала игры!")
-
-with st.sidebar:
-    st.header("⚙️ Настройки")
-    st.markdown("""
-    ### Статус игры
-    - ✅ HandDetector активен
-    - 🎥 Камера готова
-    - 🎮 Игра запущена
-    """)
-    st.markdown("---")
-    st.markdown("""
-    ### Технологии
-    - 🤖 cvzone HandTracking
-    - 📹 OpenCV
-    - 🌐 Streamlit
-    - 🎥 WebRTC
-    """)
-    st.markdown("---")
-    st.markdown("Made with ❤️ using Python")
